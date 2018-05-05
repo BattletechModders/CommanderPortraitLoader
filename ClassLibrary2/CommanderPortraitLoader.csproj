@@ -7,8 +7,8 @@
     <ProjectGuid>{7882EC1E-0AE5-43E2-94A1-A0E8F79F1D07}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary2</RootNamespace>
-    <AssemblyName>ClassLibrary2</AssemblyName>
+    <RootNamespace>CommanderPortraitLoader</RootNamespace>
+    <AssemblyName>CommanderPortraitLoader</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
