@@ -27,7 +27,7 @@ namespace CommanderPortraitLoader
                 try
                 {
                     Texture2D texture2D = new Texture2D(2, 2);
-                    byte[] array = File.ReadAllBytes("BattleTech_Data/StreamingAssets/sprites/Portraits/" + __instance.settings.Description.Icon + ".png");
+                    byte[] array = File.ReadAllBytes("mods/CommanderPortraitLoader/Portraits/" + __instance.settings.Description.Icon + ".png");
                     texture2D.LoadImage(array);
                     __result = texture2D;
                 }
@@ -76,7 +76,7 @@ namespace CommanderPortraitLoader
                 if (__result == null)
                 {
                     Texture2D texture2D2 = new Texture2D(2, 2);
-                    byte[] data = File.ReadAllBytes("BattleTech_Data/StreamingAssets/sprites/Portraits/" + __instance.Description.Icon + ".png");
+                    byte[] data = File.ReadAllBytes("mods/CommanderPortraitLoader/Portraits/" + __instance.Description.Icon + ".png");
                     texture2D2.LoadImage(data);
                     Sprite sprite = new Sprite();
                     sprite = Sprite.Create(texture2D2, new Rect(0f, 0f, (float)texture2D2.width, (float)texture2D2.height), new Vector2(0f, 0f), 100f);
@@ -101,7 +101,7 @@ namespace CommanderPortraitLoader
                 if (__result == null)
                 {
                     Texture2D texture2D2 = new Texture2D(2, 2);
-                    byte[] data = File.ReadAllBytes("BattleTech_Data/StreamingAssets/sprites/Portraits/" + __instance.Description.Icon + ".png");
+                    byte[] data = File.ReadAllBytes("mods/CommanderPortraitLoader/Portraits/" + __instance.Description.Icon + ".png");
                     texture2D2.LoadImage(data);
                     Sprite sprite = new Sprite();
                     sprite = Sprite.Create(texture2D2, new Rect(0f, 0f, (float)texture2D2.width, (float)texture2D2.height), new Vector2(0f, 0f), 100f);
