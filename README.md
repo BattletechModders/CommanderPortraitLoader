@@ -7,6 +7,7 @@ Instructions:
 1) Put your png into the C:\Program Files (x86)\Steam\steamapps\common\BATTLETECH\BattleTech_Data\StreamingAssets\sprites\Portraits folder
 2) Go to C:\Program Files (x86)\Steam\steamapps\common\BATTLETECH\BattleTech_Data\StreamingAssets\data\portraits and edit one of the files to contain your png name without .png in the icon field and set isCommander to true.
   Example for guiTxrPort_Kara_utr.png:
+  
   {
     "Description" : {
         "Id" : "PortraitPreset_1",
