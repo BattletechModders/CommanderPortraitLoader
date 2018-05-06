@@ -14,9 +14,9 @@ BattleTech mod (using BTML) that allows you to use a custom png for your command
 Downloads can be found on [github](https://github.com/Morphyum/CommanderPortraitLoader/releases).
 
 ## Install
-After installing BTML, put  everything into \BATTLETECH\Mods\ folder.
-Place Any png you like to use for your commander in \BATTLETECH\mods\CommanderPortraitLoader\Portraits .
-Start the game.
-Start a new campaign
-Your png should now be available as a preset, **Warning: currently only for male or genderless**
+- After installing BTML, put  everything into \BATTLETECH\Mods\ folder.
+- Place Any png you like to use for your commander in \BATTLETECH\mods\CommanderPortraitLoader\Portraits .
+- Start the game.
+- Start a new campaign
+- Your png should now be available as a preset, **Warning: currently only for male or genderless**
 
