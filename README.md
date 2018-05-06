@@ -15,8 +15,8 @@ Downloads can be found on [github](https://github.com/Morphyum/CommanderPortrait
 
 ## Install
 - After installing BTML, put  everything into \BATTLETECH\Mods\ folder.
-- Place Any png you like to use for your commander in \BATTLETECH\mods\CommanderPortraitLoader\Portraits .
+- Place any png you like to use for your commander in \BATTLETECH\mods\CommanderPortraitLoader\Portraits .
 - Start the game.
-- Start a new campaign
-- Your png should now be available as a preset, **Warning: currently only for male or genderless**
+- Start a new campaign.
+- Your png should now be available as a preset. **Warning: currently only for male or genderless**
 
