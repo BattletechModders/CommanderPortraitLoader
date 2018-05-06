@@ -20,6 +20,7 @@ namespace CommanderPortraitLoader {
     public class CustomPreset {
         public CustomDescription Description = new CustomDescription();
         public bool isCommander;
+        public float headMesh = 0.5f;
 
     }
 
