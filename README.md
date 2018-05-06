@@ -1,60 +1,22 @@
 # CommanderPortraitLoader
-Loads your custom pngs as a possible commander icon
+BattleTech mod (using BTML) that allows you to use a custom png for your commander, when starting a new campaign.
 
+## Requirements
+** Warning: Uses the experimental BTML mod loader that might change, come here again to check for updates **
 
-Instructions:
+* install [BattleTechModLoader](https://github.com/Mpstark/BattleTechModLoader/releases) using the [instructions here](https://github.com/Mpstark/BattleTechModLoader)
 
-1) Put your png into the C:\Program Files (x86)\Steam\steamapps\common\BATTLETECH\BattleTech_Data\StreamingAssets\sprites\Portraits folder
-2) Go to C:\Program Files (x86)\Steam\steamapps\common\BATTLETECH\BattleTech_Data\StreamingAssets\data\portraits and edit one of the files to contain your png name without .png in the icon field and set isCommander to true.
-  Example for guiTxrPort_Kara_utr.png:
-  
-  {
-    "Description" : {
-        "Id" : "PortraitPreset_1",
-        "Name" : "PortraitPreset_1",
-        "Details" : "",
-        "Icon" : "**guiTxrPort_Kara_utr**"
-    },
-    "DataManager" : null,
-    "backgroundColor" : {
-        "r" : 0,
-        "g" : 0,
-        "b" : 0,
-        "a" : 0
-    },
-    "headMesh" : 0.226,
-    "hairMesh" : 2,
-    "beardMesh" : 4,
-    "suitMesh" : 0,
-    "scar" : 8,
-    "lightRig" : 2,
-    "cameraPosition" : 1,
-    "complexionTex" : 3,
-    "eyebrowTex" : 2,
-    "tattooTex" : 1,
-    "actualTattooTex" : 3,
-    "weights" : [
-        20.26338,
-        22.60093,
-        14.9322,
-        32.04418,
-        5.584234,
-        4.57507
-    ],
-    "browOffsetY" : -0.007,
-    "browOffsetZ" : 0.00082,
-    "noseBridgeScale" : -0.132,
-    "noseTipScale" : 0.109,
-    "chinScale" : 0.2662281,
-    "cheekOffsetY" : 0.00387,
-    "eyeWidth" : 0.0042,
-    "jawWidth" : 0.066,
-    "animation" : 2,
-    "isCommander" : **true**,
-    "skinToneId" : "Skin_05",
-    "eyeColorId" : "Eye_03",
-    "hairRootId" : "Hair_07",
-    "hairTipId" : "Hair_08",
-    "tattooColorId" : "Tattoo_04",
-    "lipColorId" : "Lip_01"
-}
+## Features
+- Let's you place any png file in the mod folder and use it as your commander portrait.
+
+## Download
+
+Downloads can be found on [github](https://github.com/Morphyum/CommanderPortraitLoader/releases).
+
+## Install
+After installing BTML, put  everything into \BATTLETECH\Mods\ folder.
+Place Any png you like to use for your commander in \BATTLETECH\mods\CommanderPortraitLoader\Portraits .
+Start the game.
+Start a new campaign
+Your png should now be available as a preset, **Warning: currently only for male or genderless**
+
