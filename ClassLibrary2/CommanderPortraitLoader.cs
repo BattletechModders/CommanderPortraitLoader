@@ -13,6 +13,7 @@ using BattleTech.UI;
 using HBS;
 using HBS.Collections;
 using BattleTech.Data;
+using Newtonsoft.Json.Linq;
 
 namespace CommanderPortraitLoader {
     [HarmonyPatch(typeof(RenderedPortraitResult), "get_Item")]
@@ -140,10 +141,10 @@ namespace CommanderPortraitLoader {
         public static void Init() {
             var harmony = HarmonyInstance.Create("de.morphyum.CommanderPortraitLoader");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-
+            CreateJsons();
         }
 
-        
+
 
         // Token: 0x0600564D RID: 22093 RVA: 0x0023F158 File Offset: 0x0023D358
         public static Sprite DownsampleSprite(Sprite oldSprite) {
@@ -184,6 +185,30 @@ namespace CommanderPortraitLoader {
             }
             return list;
         }
+
+        public static void CreateJsons() {
+            try {
+                string filePath = "mods/CommanderPortraitLoader/Portraits/";
+                DirectoryInfo d1 = new DirectoryInfo(filePath);
+                FileInfo[] f1 = d1.GetFiles("*.png");
+                foreach (FileInfo info in f1) {
+                    CustomPreset preset = new CustomPreset();
+                    preset.isCommander = true;
+                    preset.Description = new CustomDescription();
+                    preset.Description.Id = info.Name.Replace(".png", "");
+                    preset.Description.Icon = info.Name.Replace(".png", "");
+                    preset.Description.Name = info.Name.Replace(".png", "");
+                    preset.Description.Details = "";
+                    JObject o = (JObject)JToken.FromObject(preset);
+                    using (StreamWriter writer = new StreamWriter(filePath + info.Name.Replace(".png", ".json"), true)) {
+                        writer.WriteLine(o);
+                    }
+                }
+            } catch(Exception e) {
+                Logger.LogError(e);
+            }
+        }
+
         /* public static Settings LoadSettings()
          {
              try
@@ -207,6 +232,20 @@ namespace CommanderPortraitLoader {
          public float RecoveryChance;
      }*/
 
+    public class CustomPreset
+ {
+        public CustomDescription Description;
+        public bool isCommander;
+
+ }
+
+    public class CustomDescription {
+        public string Id;
+        public string Name;
+        public string Details;
+        public string Icon;
+
+    }
     public class Logger {
         public static void LogError(Exception ex) {
             string filePath = "mods/CommanderPortraitLoader/Log.txt";
