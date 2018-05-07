@@ -57,7 +57,17 @@ namespace CommanderPortraitLoader {
                 string filePath = "mods/CommanderPortraitLoader/Portraits/";
                 VersionManifest manifest = VersionManifestUtilities.ManifestFromCSV("mods/CommanderPortraitLoader/VersionManifest.csv");
                 DirectoryInfo d1 = new DirectoryInfo(filePath);
-                FileInfo[] f1 = d1.GetFiles("*.json");
+                FileInfo[] f1 = d1.GetFiles("*.png");
+                foreach (VersionManifestEntry entry in manifest.Entries) {
+                    if (!File.Exists(entry.FilePath.Replace(".json", ".png"))) {
+                        if (File.Exists(entry.FilePath)) {
+                            File.Delete(entry.FilePath);
+                        }
+                        manifest.Remove(entry.Id, entry.Type, DateTime.Now);
+                        manifest.ClearRemoved();
+                    }
+                }
+                f1 = d1.GetFiles("*.json");
                 CustomPreset preset = new CustomPreset();
                 foreach (FileInfo info in f1) {
                     using (StreamReader r = new StreamReader(info.FullName)) {
