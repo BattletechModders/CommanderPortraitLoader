@@ -1,5 +1,5 @@
 # CommanderPortraitLoader
-BattleTech mod (using BTML) that allows you to use a custom png for your commander, when starting a new campaign.
+BattleTech mod (using BTML) that allows you to use a custom png and choose a voice for your commander, when starting a new campaign.
 
 ## Requirements
 ** Warning: Uses the experimental BTML mod loader that might change, come here again to check for updates **
@@ -8,6 +8,7 @@ BattleTech mod (using BTML) that allows you to use a custom png for your command
 
 ## Features
 - Let's you place any png file in the mod folder and use it as your commander portrait.
+- Let's you choose a voice for your commander.
 
 ## Download
 
