@@ -5,14 +5,13 @@ using System.IO;
 using BattleTech.Portraits;
 using UnityEngine;
 using BattleTech.UI;
+using HBS;
 
 namespace CommanderPortraitLoader {
     [HarmonyPatch(typeof(RenderedPortraitResult), "get_Item")]
     public static class RenderedPortraitResult_get_Item_Patch {
         static void Postfix(RenderedPortraitResult __instance, ref Texture2D __result) {
-            Logger.LogLine("RenderedPortraitResult Postfix start");
             if (!string.IsNullOrEmpty(__instance.settings.Description.Icon)) {
-                Logger.LogLine("Icon Found");
                 try {
                     Texture2D texture2D = new Texture2D(2, 2);
                     byte[] array = File.ReadAllBytes("mods/CommanderPortraitLoader/Portraits/" + __instance.settings.Description.Icon + ".png");
@@ -29,16 +28,16 @@ namespace CommanderPortraitLoader {
     [HarmonyPatch(typeof(SGCharacterCreationWidget), "CreatePilot")]
     public static class SGCharacterCreationWidget_CreatePilot_Patch {
         static void Postfix(ref SGCharacterCreationWidget __instance, ref Pilot __result) {
-            Logger.LogLine("CreatePilot Postfix start");
             try {
-                if (!string.IsNullOrEmpty(__result.pilotDef.Description.Icon)) {
+
+                if (!string.IsNullOrEmpty(__result.pilotDef.PortraitSettings.Description.Icon)) {
+                    Settings settings = Helper.LoadSettings();
                     PilotDef pilotDef = new PilotDef(new HumanDescriptionDef(__result.Description.Id, __result.Description.Callsign, __result.Description.FirstName, __result.Description.LastName,
-                        __result.Description.Callsign, __result.Description.Gender, Faction.NoFaction, __result.Description.Age, __result.Description.Details, __result.pilotDef.Description.Icon),
-                        __result.Gunnery, __result.Piloting, __result.Guts, __result.Guts, 0, 3, false, 0, string.Empty, Helper.GetAbilities(__result.Gunnery, __result.Piloting, __result.Guts, __result.Guts), AIPersonality.Undefined, 0, __result.pilotDef.PilotTags, 0, 0);
+                        __result.Description.Callsign, __result.Description.Gender, Faction.NoFaction, __result.Description.Age, __result.Description.Details, __result.pilotDef.PortraitSettings.Description.Icon),
+                        __result.Gunnery, __result.Piloting, __result.Guts, __result.Guts, 0, 3, false, 0, settings.newCommanderVoice, Helper.GetAbilities(__result.Gunnery, __result.Piloting, __result.Guts, __result.Guts), AIPersonality.Undefined, 0, __result.pilotDef.PilotTags, 0, 0);
                     pilotDef.PortraitSettings = null;
                     pilotDef.SetHiringHallStats(true, false, true, false);
                     __result = new Pilot(pilotDef, "commander", false);
-                    Logger.LogLine("Pilot modified");
                 }
             }
             catch (Exception e) {
@@ -50,7 +49,6 @@ namespace CommanderPortraitLoader {
     [HarmonyPatch(typeof(PilotDef), "GetPortraitSprite")]
     public static class PilotDef_GetPortraitSprite_Patch {
         static void Postfix(ref PilotDef __instance, ref Sprite __result) {
-            Logger.LogLine("GetPortraitSprite Postfix start");
             try {
                 if (__result == null) {
                     Texture2D texture2D2 = new Texture2D(2, 2);
@@ -70,7 +68,6 @@ namespace CommanderPortraitLoader {
     [HarmonyPatch(typeof(PilotDef), "GetPortraitSpriteThumb")]
     public static class PilotDef_GetPortraitSpriteThumb_Patch {
         static void Postfix(ref PilotDef __instance, ref Sprite __result) {
-            Logger.LogLine("GetPortraitSpriteThumb Postfix start");
             try {
                 if (__result == null) {
                     Texture2D texture2D2 = new Texture2D(2, 2);
@@ -87,32 +84,8 @@ namespace CommanderPortraitLoader {
         }
     }
 
-    /*[HarmonyPatch(typeof(SGCharacterCreationPortraitSelectionPanel), "PopulateList")]
-    public static class SGCharacterCreationPortraitSelectionPanel_PopulateList_Patch {
-        static void Postfix(SGCharacterCreationPortraitSelectionPanel __instance) {
-            Logger.LogLine("PopulateList Prefix start");
-
-            try {
-                PortraitSettings settings = new PortraitSettings();
-                string json;
-                using (StreamReader r = new StreamReader("mods/CommanderPortraitLoader/Portraits/PortraitPreset_Kara.json")) {
-                    json = r.ReadToEnd();
-                }
-                settings.FromJSON(json);
-                DataManager data = LazySingletonBehavior<UnityGameInstance>.Instance.Game.DataManager;
-                KeyValuePair<string, PortraitSettings> pair = new KeyValuePair<string, PortraitSettings>(settings.Description.Id, settings);
-                data.PortraitSettings.Add(pair);
-            }
-            catch (Exception e) {
-
-                Logger.LogError(e);
-            }
-        }
-    }*/
-
     [HarmonyPatch(typeof(VersionManifestUtilities), "LoadDefaultManifest")]
     public static class VersionManifestUtilitiesPatch {
-        // ReSharper disable once RedundantAssignment
         public static void Postfix(ref VersionManifest __result) {
             try {
                 var addendum = VersionManifestUtilities.ManifestFromCSV("mods/CommanderPortraitLoader/VersionManifest.csv");
@@ -126,4 +99,57 @@ namespace CommanderPortraitLoader {
 
         }
     }
+
+    [HarmonyPatch(typeof(SpawnableUnit), "Init", new Type[] { typeof(PilotableActorDef), typeof(PilotDef) })]
+    public static class SpawnableUnit_Init_Patch {
+        static void Prefix(ref SpawnableUnit __instance, PilotDef pilotDef) {
+            try {
+                if (!string.IsNullOrEmpty(pilotDef.Voice)) {
+                    string text2 = string.Format("vo_{0}", pilotDef.Voice);
+                    AudioBankList bankId2 = (AudioBankList)Enum.Parse(typeof(AudioBankList), text2, true);
+                    SceneSingletonBehavior<WwiseManager>.Instance.LoadBank(bankId2);
+                    SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add(text2);
+                }
+            }
+            catch (Exception e) {
+                Logger.LogError(e);
+            }
+        }
+    }
+
+
+    public static class PilotRepresentation_PlayPilotVO_Patch {
+        public static void Prefix(PilotRepresentation __instance, ref bool __state) {
+            try {
+                Logger.LogLine("Voice: " + __instance.pilot.pilotDef.Voice);
+                if (__instance.pilot.IsPlayerCharacter) {
+                    Logger.LogLine("Player Prefix"); 
+                    if (!string.IsNullOrEmpty(__instance.pilot.pilotDef.Voice)) {
+                        Logger.LogLine("Prefix If");
+                        __state = __instance.pilot.pilotDef.PilotTags.Remove("commander_player");
+                        Logger.LogLine(__state.ToString());
+                    }
+                }
+            }
+            catch (Exception e) {
+                Logger.LogError(e);
+            }
+
+        }
+
+        public static void Postfix(PilotRepresentation __instance, bool __state) {
+            try {
+                if (__state) {
+                    Logger.LogLine("Postfix If");
+                    __instance.pilot.pilotDef.PilotTags.Add("commander_player");
+                }
+            }
+            catch (Exception e) {
+                Logger.LogError(e);
+            }
+
+        }
+    }
+
+
 }

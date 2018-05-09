@@ -13,4 +13,8 @@
         public string Icon;
 
     }
+
+    public class Settings {
+        public string newCommanderVoice;
+    }
 }

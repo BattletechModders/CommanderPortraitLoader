@@ -2,6 +2,9 @@
 using BattleTech;
 using UnityEngine;
 using HBS;
+using System.IO;
+using Newtonsoft.Json;
+using System;
 
 namespace CommanderPortraitLoader {
     public class Helper{
@@ -43,6 +46,19 @@ namespace CommanderPortraitLoader {
                 list.AddRange(abilityDefConsts[i]);
             }
             return list;
+        }
+
+        public static Settings LoadSettings() {
+            try {
+                using (StreamReader r = new StreamReader("mods/CommanderPortraitLoader/settings.json")) {
+                    string json = r.ReadToEnd();
+                    return JsonConvert.DeserializeObject<Settings>(json);
+                }
+            }
+            catch (Exception ex) {
+                Logger.LogError(ex);
+                return null;
+            }
         }
     }
 }

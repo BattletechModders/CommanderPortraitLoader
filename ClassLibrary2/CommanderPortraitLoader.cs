@@ -11,6 +11,11 @@ namespace CommanderPortraitLoader {
 
         public static void Init() {
             var harmony = HarmonyInstance.Create("de.morphyum.CommanderPortraitLoader");
+            var original = typeof(PilotRepresentation).GetMethod("PlayPilotVO");
+            var genericMethod = original.MakeGenericMethod(new Type[] { typeof(AudioSwitch_dialog_lines_pilots) });
+            var prefix = typeof(PilotRepresentation_PlayPilotVO_Patch).GetMethod("Prefix");
+            var postfix = typeof(PilotRepresentation_PlayPilotVO_Patch).GetMethod("Postfix");
+            harmony.Patch(genericMethod, new HarmonyMethod(prefix), new HarmonyMethod(postfix));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             CreateJsons();
             AddOrUpdateJSONToManifest();
@@ -72,28 +77,5 @@ namespace CommanderPortraitLoader {
                 Logger.LogError(e);
             }
         }
-
-        /* public static Settings LoadSettings()
-         {
-             try
-             {
-                 using (StreamReader r = new StreamReader("mods/CommanderPortraitLoader/settings.json"))
-                 {
-                     string json = r.ReadToEnd();
-                     return JsonConvert.DeserializeObject<Settings>(json);
-                 }
-             }
-             catch (Exception ex)
-             {
-                 Logger.LogError(ex);
-                 return null;
-             }
-         }*/
     }
-
-    /*public class Settings
-     {
-         public float RecoveryChance;
-     }*/
-
 }
