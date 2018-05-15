@@ -14,10 +14,10 @@ The Commander Portrait Loader is a BattleTech mod (using BTML) allowing you to u
 
 Downloads can be found on [github](https://github.com/Morphyum/CommanderPortraitLoader/releases).
     
-## Install
+## Install and use
 - After installing BTML, put  everything into \BATTLETECH\Mods\ folder.
 - Place any png you like to use for your commander in \BATTLETECH\mods\CommanderPortraitLoader\Portraits.
 - Start the game.
 - Start a new campaign.
-- Your PNG(s) should now be available as a preset at the bottom of the list.
+- Your PNG(s) should now be available as a preset at the top of the portrait list.
 - Select one of the 26 voices (13 female, 13 male) or the original Onboard AI voice.
