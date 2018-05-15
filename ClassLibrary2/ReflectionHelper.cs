@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace ShotCountEnabler {
+namespace CommanderPortraitLoader{
     public static class ReflectionHelper {
         
         public static object InvokePrivateMethode(object instance, string methodname, object[] parameters) {
@@ -20,6 +20,12 @@ namespace ShotCountEnabler {
             Type type = instance.GetType();
             FieldInfo field = type.GetField(fieldname, BindingFlags.NonPublic | BindingFlags.Instance);
             field.SetValue(instance, value);
+        }
+        public static object GetPrivateProperty(object instance, string fieldname)
+        {
+            Type type = instance.GetType();
+            PropertyInfo property = type.GetProperty(fieldname, BindingFlags.NonPublic | BindingFlags.Instance);
+            return property.GetValue(instance,null);
         }
     }
 }

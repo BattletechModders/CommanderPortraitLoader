@@ -3,7 +3,7 @@
         public CustomDescription Description = new CustomDescription();
         public bool isCommander;
         public float headMesh = 0.5f;
-
+//        public string newVoice;
     }
 
     public class CustomDescription {
@@ -17,4 +17,10 @@
     public class Settings {
         public string newCommanderVoice;
     }
+
+    public static class NewVoice
+    {
+        public static string newVoice;
+    }
+
 }
