@@ -2,7 +2,7 @@
 The Commander Portrait Loader is a BattleTech mod (using BTML) allowing you to use custom PNGs as portraits and to select one of 26 voices for your Commander when starting a new campaign.
 
 ## Requirements
-** Warning: Uses the experimental BTML mod loader that might change, come here again to check for updates **
+** Warning: Uses the experimental BTML mod loader and ModTek that might change, come here again to check for updates **
 
 * install [BattleTechModLoader](https://github.com/Mpstark/BattleTechModLoader/releases) using the [instructions here](https://github.com/Mpstark/BattleTechModLoader)
 * install [ModTek](https://github.com/Mpstark/ModTek/releases) using the [instructions here](https://github.com/Mpstark/ModTek)
