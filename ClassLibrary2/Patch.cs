@@ -254,32 +254,32 @@ namespace CommanderPortraitLoader {
             }
             codes.Insert(0, new CodeInstruction(OpCodes.Ldarg_1));
             codes.Insert(1, new CodeInstruction(OpCodes.Newarr, codes[newarrIndex + 1].operand));
-            codes.Insert(2, new CodeInstruction(OpCodes.Stloc_0));
+            codes.Insert(2, new CodeInstruction(OpCodes.Stloc_1));
             codes.Insert(3, new CodeInstruction(OpCodes.Newobj, codes[newobjIndex + 3].operand));
-            codes.Insert(4, new CodeInstruction(OpCodes.Stloc_1));
+            codes.Insert(4, new CodeInstruction(OpCodes.Stloc_2));
             codes.Insert(5, new CodeInstruction(OpCodes.Ldc_I4_0));
-            codes.Insert(6, new CodeInstruction(OpCodes.Stloc_2));
+            codes.Insert(6, new CodeInstruction(OpCodes.Stloc_3));
             codes.Insert(7, new CodeInstruction(OpCodes.Br, jump1));
 
-            codes.Insert(8, new CodeInstruction(OpCodes.Ldloc_0) { labels = new List<Label>() { jump2 } });
-            codes.Insert(9, new CodeInstruction(OpCodes.Ldloc_2));
-            codes.Insert(10, new CodeInstruction(OpCodes.Ldloc_2));
+            codes.Insert(8, new CodeInstruction(OpCodes.Ldloc_1) { labels = new List<Label>() { jump2 } });
+            codes.Insert(9, new CodeInstruction(OpCodes.Ldloc_3));
+            codes.Insert(10, new CodeInstruction(OpCodes.Ldloc_3));
             codes.Insert(11, new CodeInstruction(OpCodes.Stelem_I4));
-            codes.Insert(12, new CodeInstruction(OpCodes.Ldloc_1));
-            codes.Insert(13, new CodeInstruction(OpCodes.Ldloc_2));
+            codes.Insert(12, new CodeInstruction(OpCodes.Ldloc_2));
+            codes.Insert(13, new CodeInstruction(OpCodes.Ldloc_3));
             codes.Insert(14, new CodeInstruction(OpCodes.Callvirt, codes[callvirtIndex + 14].operand));
-            codes.Insert(15, new CodeInstruction(OpCodes.Ldloc_2));
+            codes.Insert(15, new CodeInstruction(OpCodes.Ldloc_3));
             codes.Insert(16, new CodeInstruction(OpCodes.Ldc_I4_1));
             codes.Insert(17, new CodeInstruction(OpCodes.Add));
-            codes.Insert(18, new CodeInstruction(OpCodes.Stloc_2));
+            codes.Insert(18, new CodeInstruction(OpCodes.Stloc_3));
 
-            codes.Insert(19, new CodeInstruction(OpCodes.Ldloc_2) { labels = new List<Label>() { jump1 } });
+            codes.Insert(19, new CodeInstruction(OpCodes.Ldloc_3) { labels = new List<Label>() { jump1 } });
             codes.Insert(20, new CodeInstruction(OpCodes.Ldarg_1));
             codes.Insert(21, new CodeInstruction(OpCodes.Blt, jump2));
 
-            codes.Insert(22, new CodeInstruction(OpCodes.Ldloc_0));
+            codes.Insert(22, new CodeInstruction(OpCodes.Ldloc_1));
             codes.Insert(23, new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Array), "Reverse", new Type[] { typeof(Array) })));
-            codes.Insert(24, new CodeInstruction(OpCodes.Ldloc_0));
+            codes.Insert(24, new CodeInstruction(OpCodes.Ldloc_1));
             codes.Insert(25, new CodeInstruction(OpCodes.Ret));
             return codes.AsEnumerable();
         }
