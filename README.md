@@ -5,6 +5,7 @@ The Commander Portrait Loader is a BattleTech mod (using BTML) allowing you to u
 ** Warning: Uses the experimental BTML mod loader that might change, come here again to check for updates **
 
 * install [BattleTechModLoader](https://github.com/Mpstark/BattleTechModLoader/releases) using the [instructions here](https://github.com/Mpstark/BattleTechModLoader)
+* install [ModTek](https://github.com/Mpstark/ModTek/releases) using the [instructions here](https://github.com/Mpstark/ModTek)
 
 ## Features
 - Allows you to use any PNG file placed in the mod folder and use it as your Commander portrait.
@@ -15,7 +16,7 @@ The Commander Portrait Loader is a BattleTech mod (using BTML) allowing you to u
 Downloads can be found on [github](https://github.com/Morphyum/CommanderPortraitLoader/releases).
     
 ## Install and use
-- After installing BTML, put  everything into \BATTLETECH\Mods\ folder.
+- After installing BTML and ModTek, put the CommanderPortraitLoader folder into the \BATTLETECH\Mods\ folder.
 - Place any png you like to use for your commander in \BATTLETECH\mods\CommanderPortraitLoader\Portraits.
 - Start the game.
 - Start a new campaign.
