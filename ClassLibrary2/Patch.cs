@@ -400,7 +400,7 @@ namespace CommanderPortraitLoader {
                         }
                         if (text == "female midwest")
                         {
-                            NewVoice.newVoice = "f_pro4_midwest";
+                            NewVoice.newVoice = "f_pro04_midwest";
                             WwiseManager.SetSwitch(AudioSwitch_dialog_character_type_pilots.f_pro04_midwest, WwiseManager.GlobalAudioObject);
                         }
                         if (text == "female tanesha")
