@@ -8,14 +8,16 @@ using Newtonsoft.Json;
 
 namespace CommanderPortraitLoader {
     public static class CommanderPortraitLoader {
+        internal static string ModDirectory;
 
-        public static void Init() {
+        public static void Init(string directory, string settingsJSON) {
             var harmony = HarmonyInstance.Create("de.morphyum.CommanderPortraitLoader");
             var original = typeof(PilotRepresentation).GetMethod("PlayPilotVO");
             var genericMethod = original.MakeGenericMethod(new Type[] { typeof(AudioSwitch_dialog_lines_pilots) });
             var transpiler = typeof(PilotRepresentation_PlayPilotVO_Patch).GetMethod("Transpiler");
             harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
+            ModDirectory = directory;
             CreateJsons();
             AddOrUpdateJSONToManifest();
             HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
@@ -27,7 +29,7 @@ namespace CommanderPortraitLoader {
 
         public static void CreateJsons() {
             try {
-                string filePath = "mods/CommanderPortraitLoader/Portraits/";
+                string filePath = $"{ CommanderPortraitLoader.ModDirectory}/Portraits/";
                 DirectoryInfo d1 = new DirectoryInfo(filePath);
                 FileInfo[] f1 = d1.GetFiles("*.png");
                 foreach (FileInfo info in f1) {
@@ -53,8 +55,8 @@ namespace CommanderPortraitLoader {
 
         private static void AddOrUpdateJSONToManifest() {
             try {
-                string filePath = "mods/CommanderPortraitLoader/Portraits/";
-                VersionManifest manifest = VersionManifestUtilities.ManifestFromCSV("mods/CommanderPortraitLoader/VersionManifest.csv");
+                string filePath = $"{ CommanderPortraitLoader.ModDirectory}/Portraits/";
+                VersionManifest manifest = VersionManifestUtilities.ManifestFromCSV($"{ CommanderPortraitLoader.ModDirectory}/VersionManifest.csv");
                 DirectoryInfo d1 = new DirectoryInfo(filePath);
                 FileInfo[] f1 = d1.GetFiles("*.png");
                 foreach (VersionManifestEntry entry in manifest.Entries) {
@@ -75,7 +77,7 @@ namespace CommanderPortraitLoader {
                     }
                     manifest.AddOrUpdate(preset.Description.Id, info.FullName, "PortraitSettings", DateTime.Now, null, false);
                 }
-                VersionManifestUtilities.ManifestToCSV(manifest, "mods/CommanderPortraitLoader/VersionManifest.csv");
+                VersionManifestUtilities.ManifestToCSV(manifest, $"{ CommanderPortraitLoader.ModDirectory}/VersionManifest.csv");
             }
             catch (Exception e) {
                 Logger.LogError(e);

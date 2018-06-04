@@ -3,9 +3,9 @@ using System.IO;
 
 namespace CommanderPortraitLoader {
     public class Logger {
+        static string filePath = $"{CommanderPortraitLoader.ModDirectory}/Log.txt";
         public static void LogError(Exception ex) {
-            string filePath = "mods/CommanderPortraitLoader/Log.txt";
-            using (StreamWriter writer = new StreamWriter(filePath, true)) {
+            using (var writer = new StreamWriter(filePath, true)) {
                 writer.WriteLine("Message :" + ex.Message + "<br/>" + Environment.NewLine + "StackTrace :" + ex.StackTrace +
                    "" + Environment.NewLine + "Date :" + DateTime.Now.ToString());
                 writer.WriteLine(Environment.NewLine + "-----------------------------------------------------------------------------" + Environment.NewLine);
@@ -13,8 +13,7 @@ namespace CommanderPortraitLoader {
         }
 
         public static void LogLine(String line) {
-            string filePath = "mods/CommanderPortraitLoader/Log.txt";
-            using (StreamWriter writer = new StreamWriter(filePath, true)) {
+            using (var writer = new StreamWriter(filePath, true)) {
                 writer.WriteLine(line + Environment.NewLine + "Date :" + DateTime.Now.ToString());
                 writer.WriteLine(Environment.NewLine + "-----------------------------------------------------------------------------" + Environment.NewLine);
             }

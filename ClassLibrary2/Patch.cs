@@ -18,7 +18,7 @@ namespace CommanderPortraitLoader {
             if (!string.IsNullOrEmpty(__instance.settings.Description.Icon)) {
                 try {
                     Texture2D texture2D = new Texture2D(2, 2);
-                    byte[] array = File.ReadAllBytes("mods/CommanderPortraitLoader/Portraits/" + __instance.settings.Description.Icon + ".png");
+                    byte[] array = File.ReadAllBytes($"{ CommanderPortraitLoader.ModDirectory}/Portraits/" + __instance.settings.Description.Icon + ".png");
                     texture2D.LoadImage(array);
                     __result = texture2D;
                 }
@@ -79,7 +79,7 @@ namespace CommanderPortraitLoader {
             try {
                 if (__result == null) {
                     Texture2D texture2D2 = new Texture2D(2, 2);
-                    byte[] data = File.ReadAllBytes("mods/CommanderPortraitLoader/Portraits/" + __instance.Description.Icon + ".png");
+                    byte[] data = File.ReadAllBytes($"{ CommanderPortraitLoader.ModDirectory}/Portraits/" + __instance.Description.Icon + ".png");
                     texture2D2.LoadImage(data);
                     Sprite sprite = new Sprite();
                     sprite = Sprite.Create(texture2D2, new Rect(0f, 0f, (float)texture2D2.width, (float)texture2D2.height), new Vector2(0f, 0f), 100f);
@@ -98,7 +98,7 @@ namespace CommanderPortraitLoader {
             try {
                 if (__result == null) {
                     Texture2D texture2D2 = new Texture2D(2, 2);
-                    byte[] data = File.ReadAllBytes("mods/CommanderPortraitLoader/Portraits/" + __instance.Description.Icon + ".png");
+                    byte[] data = File.ReadAllBytes($"{ CommanderPortraitLoader.ModDirectory}/Portraits/" + __instance.Description.Icon + ".png");
                     texture2D2.LoadImage(data);
                     Sprite sprite = new Sprite();
                     sprite = Sprite.Create(texture2D2, new Rect(0f, 0f, (float)texture2D2.width, (float)texture2D2.height), new Vector2(0f, 0f), 100f);
@@ -115,7 +115,7 @@ namespace CommanderPortraitLoader {
     public static class VersionManifestUtilitiesPatch {
         public static void Postfix(ref VersionManifest __result) {
             try {
-                var addendum = VersionManifestUtilities.ManifestFromCSV("mods/CommanderPortraitLoader/VersionManifest.csv");
+                var addendum = VersionManifestUtilities.ManifestFromCSV($"{ CommanderPortraitLoader.ModDirectory}/VersionManifest.csv");
                 foreach (var entry in addendum.Entries) {
                     __result.AddOrUpdate(entry.Id, entry.FilePath, entry.Type, entry.AddedOn, entry.AssetBundleName, entry.IsAssetBundlePersistent);
                 }
