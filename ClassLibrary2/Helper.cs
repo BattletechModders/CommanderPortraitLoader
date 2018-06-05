@@ -58,7 +58,7 @@ namespace CommanderPortraitLoader
         {
             try
             {
-                using (StreamReader r = new StreamReader("mods/CommanderPortraitLoader/settings.json"))
+                using (StreamReader r = new StreamReader($"{ CommanderPortraitLoader.ModDirectory}/settings.json"))
                 {
                     string json = r.ReadToEnd();
                     return JsonConvert.DeserializeObject<Settings>(json);
