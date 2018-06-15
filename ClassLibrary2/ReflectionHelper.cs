@@ -10,12 +10,6 @@ namespace CommanderPortraitLoader{
             return methodInfo.Invoke(instance, parameters);
         }
 
-        public static void SetPrivateProperty(object instance, string propertyname, object value) {
-            Type type = instance.GetType();
-            PropertyInfo property = type.GetProperty(propertyname, BindingFlags.NonPublic | BindingFlags.Instance);
-            property.SetValue(instance, value);
-        }
-
         public static void SetPrivateField(object instance, string fieldname, object value) {
             Type type = instance.GetType();
             FieldInfo field = type.GetField(fieldname, BindingFlags.NonPublic | BindingFlags.Instance);

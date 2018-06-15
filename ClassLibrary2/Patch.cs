@@ -61,7 +61,7 @@ namespace CommanderPortraitLoader {
                     //Settings settings = Helper.LoadSettings();
                     PilotDef pilotDef = new PilotDef(new HumanDescriptionDef(__result.Description.Id, __result.Description.Callsign, __result.Description.FirstName, __result.Description.LastName,
                         __result.Description.Callsign, __result.Description.Gender, Faction.NoFaction, __result.Description.Age, __result.Description.Details, __result.pilotDef.PortraitSettings.Description.Icon),
-                        __result.Gunnery, __result.Piloting, __result.Guts, __result.Guts, 0, 3, false, 0, NewVoice.newVoice, Helper.GetAbilities(__result.Gunnery, __result.Piloting, __result.Guts, __result.Guts), AIPersonality.Undefined, 0, __result.pilotDef.PilotTags, 0, 0);
+                        __result.Gunnery, __result.Piloting, __result.Guts, __result.Tactics, 0, 3, false, 0, NewVoice.newVoice, Helper.GetAbilities(__result.Gunnery, __result.Piloting, __result.Guts, __result.Tactics), AIPersonality.Undefined, 0, __result.pilotDef.PilotTags, 0, 0);
                     pilotDef.PortraitSettings = null;
                     pilotDef.SetHiringHallStats(true, false, true, false);
                     __result = new Pilot(pilotDef, "commander", false);
