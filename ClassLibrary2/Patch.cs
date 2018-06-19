@@ -311,8 +311,13 @@ namespace CommanderPortraitLoader {
     [HarmonyPatch(typeof(SGCharacterCreationNamePanel), "LoadOptions")]
     public static class SGCharacterCreationNamePanel_LoadOptions_Patch
     {
+        static bool Prefix() {
+            return false;
+        }
+
         static void Postfix(ref SGCharacterCreationNamePanel __instance)
         {
+            ReflectionHelper.SetPrivateField(__instance, "nameWasBlank", (bool)ReflectionHelper.InvokePrivateMethode(__instance, "get_NameIsBlank",null));
             __instance.pronounSelector.SetOptions(new string[]
             {
                 "Female Pro",
@@ -356,6 +361,7 @@ namespace CommanderPortraitLoader {
         }
         public static void Postfix(ref SGCharacterCreationNamePanel __instance, ref Gender __result)
         {
+            
             bool lastVOWasLight = false;
             WwiseManager.PostEvent(AudioEventList_vo.vo_stop_pilots, WwiseManager.GlobalAudioObject, null, null);
             NewVoice.newVoice = string.Empty;
