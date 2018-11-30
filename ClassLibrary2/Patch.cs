@@ -169,7 +169,7 @@ namespace CommanderPortraitLoader {
         }
     }
 
-    [HarmonyPatch(typeof(SimGameState), "AddPilotToRoster", new Type[] { typeof(PilotDef), typeof(bool) })]
+    [HarmonyPatch(typeof(SimGameState), "AddPilotToRoster", new Type[] { typeof(PilotDef), typeof(bool), typeof(bool) })]
     public static class SimGameState_AddPilotToRoster_Patch
     {
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
