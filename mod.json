@@ -16,6 +16,10 @@
     {
       "Type": "Sprite",
       "Path": "Portraits"
+    },
+	{
+      "Type": "PortraitSettings",
+      "Path": "PortraitJsons"
     }
   ]
 }

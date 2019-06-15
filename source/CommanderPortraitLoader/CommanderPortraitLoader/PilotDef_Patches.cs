@@ -17,6 +17,7 @@ namespace CommanderPortraitLoader
             if (!string.IsNullOrEmpty(__instance.Description.Icon))
             {
                 Logger.LogLine(string.Format("Loading Pilot: {0}", (object)__instance.Description.Callsign));
+                // Issue a Load request for any custom sprites 
                 loadRequest.AddBlindLoadRequest(BattleTechResourceType.Sprite, __instance.Description.Icon, new bool?(false));
 
             }
