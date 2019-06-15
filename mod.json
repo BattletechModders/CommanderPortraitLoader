@@ -10,6 +10,8 @@
 	
 	"ConflictsWith": [ "RogueTech Enhanced", "RogueTech Enhanced Clans"],
 	
+	"DLL": "CommanderPortraitLoader.dll",
+	
 	"Manifest": [
     {
       "Type": "Sprite",
