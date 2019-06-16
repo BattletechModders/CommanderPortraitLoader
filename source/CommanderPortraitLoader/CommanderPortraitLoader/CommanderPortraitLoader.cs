@@ -8,6 +8,7 @@ using System.Reflection;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using BattleTech.Portraits;
 
 namespace CommanderPortraitLoader
 {
@@ -48,17 +49,24 @@ namespace CommanderPortraitLoader
                 {
                     if (!File.Exists(info.FullName.Replace(".png", ".json")))
                     {
-                        CustomPreset preset = new CustomPreset();
-                        preset.isCommander = true;
-                        preset.Description = new CustomDescription();
-                        preset.Description.Id = info.Name.Replace(".png", "");
-                        preset.Description.Icon = info.Name.Replace(".png", "");
-                        preset.Description.Name = info.Name.Replace(".png", "");
-                        preset.Description.Details = "";
-                        JObject o = (JObject)JToken.FromObject(preset);
+                        PortraitSettings portait = new PortraitSettings();
+                        portait.Randomize(false);
+                        portait.Description.SetName(info.Name.Replace(".png", ""));
+                        portait.Description.SetID(info.Name.Replace(".png", ""));
+                        portait.Description.SetIcon(info.Name.Replace(".png", ""));
+                        portait.isCommander = true;
+                        portait.headMesh = 0.5f;
+                        //CustomPreset preset = new CustomPreset();
+                        //preset.isCommander = true;
+                        //preset.Description = new CustomDescription();
+                        //preset.Description.Id = info.Name.Replace(".png", "");
+                        //preset.Description.Icon = info.Name.Replace(".png", "");
+                        //preset.Description.Name = info.Name.Replace(".png", "");
+                        //preset.Description.Details = "";
+                        //JObject o = (JObject)JToken.FromObject(preset);
                         using (StreamWriter writer = new StreamWriter(jsonPath + info.Name.Replace(".png", ".json"), false))
                         {
-                            writer.WriteLine(o);
+                            writer.WriteLine(portait.ToJSON());
                         }
                     }
                 }
