@@ -16,6 +16,8 @@ namespace CommanderPortraitLoader
         {
             if (!CommanderPortraitLoader.disableCreatePilotPatch)
             {
+                // This is dead code right now, and not needed for portraits, 
+                // leaving it here because I'll probably need to patch this method for audio
                 try
                 {
                     if (!string.IsNullOrEmpty(__result.pilotDef.PortraitSettings.Description.Icon))
@@ -35,17 +37,4 @@ namespace CommanderPortraitLoader
 
     }
 
-    [HarmonyPatch(typeof(SGCharacterCreationWidget), "ReceiveButtonPress")]
-    public static class SSGCharacterCreationWidget_ReceiveButtonPressPatch
-    {
-        static void Prefix()
-        {
-            CommanderPortraitLoader.disableCreatePilotPatch = false;
-        }
-        static void Postfix()
-        {
-            CommanderPortraitLoader.disableCreatePilotPatch = true;
-        }
-
-    }
 }
