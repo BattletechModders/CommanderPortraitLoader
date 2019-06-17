@@ -15,6 +15,7 @@ namespace CommanderPortraitLoader
     public static class CommanderPortraitLoader
     {
         internal static string ModDirectory;
+        public static bool disableCreatePilotPatch;
 
         public static void Init(string directory, string settingsJSON)
         {
@@ -25,6 +26,7 @@ namespace CommanderPortraitLoader
             //harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             ModDirectory = directory;
+            disableCreatePilotPatch = false;
             CreateJsons();
             //AddOrUpdateJSONToManifest();
             //HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
@@ -50,12 +52,13 @@ namespace CommanderPortraitLoader
                     if (!File.Exists(info.FullName.Replace(".png", ".json")))
                     {
                         PortraitSettings portait = new PortraitSettings();
-                        portait.Randomize(false);
+                        portait.headMesh = 0.5f;
+                        portait.Randomize(true);
                         portait.Description.SetName(info.Name.Replace(".png", ""));
                         portait.Description.SetID(info.Name.Replace(".png", ""));
                         portait.Description.SetIcon(info.Name.Replace(".png", ""));
                         portait.isCommander = true;
-                        portait.headMesh = 0.5f;
+                        
                         //CustomPreset preset = new CustomPreset();
                         //preset.isCommander = true;
                         //preset.Description = new CustomDescription();

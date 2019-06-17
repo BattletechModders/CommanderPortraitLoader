@@ -58,6 +58,7 @@
     <Compile Include="PilotDef_Patches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderedPortraitResult_GetItemPatch.cs" />
+    <Compile Include="SGCharacterCreationCareerBackgroundSelectionPanel_Patches.cs" />
     <Compile Include="SGCharacterCreationWidget_Patches.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,17 +13,24 @@ namespace CommanderPortraitLoader
     {
         static void Postfix(ref SGCharacterCreationWidget __instance, ref Pilot __result)
         {
-            try
+            if (!CommanderPortraitLoader.disableCreatePilotPatch)
             {
-                if (!string.IsNullOrEmpty(__result.pilotDef.PortraitSettings.Description.Icon))
+                try
                 {
-                    __result.pilotDef.Description.SetIcon(__result.pilotDef.PortraitSettings.Description.Icon);
-                    __result.pilotDef.PortraitSettings = null;
+                    if (!string.IsNullOrEmpty(__result.pilotDef.PortraitSettings.Description.Icon))
+                    {
+                        __result.pilotDef.Description.SetIcon(__result.pilotDef.PortraitSettings.Description.Icon);
+                        __result.pilotDef.PortraitSettings = null;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.LogError(e);
                 }
             }
-            catch (Exception e)
+            else
             {
-                Logger.LogError(e);
+                Logger.LogLine("Disabling CreatePilot Patch");
             }
         }
 
