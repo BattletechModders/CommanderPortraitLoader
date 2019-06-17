@@ -15,6 +15,15 @@ namespace CommanderPortraitLoader
     {
         public static void Postfix(PilotDef __instance, LoadRequest loadRequest)
         {
+            if (__instance.PortraitSettings != null)
+            {
+                if(!string.IsNullOrEmpty(__instance.PortraitSettings.Description.Icon))
+                {
+                    __instance.Description.SetIcon(__instance.PortraitSettings.Description.Icon);
+                    __instance.PortraitSettings = null;
+                    Logger.LogLine(string.Format("Loading Pilot: {0}, {1}", (object)__instance.Description.Callsign, (object)__instance.Description.Icon));
+                }
+            }
             if (!string.IsNullOrEmpty(__instance.Description.Icon))
             {
                 Logger.LogLine(string.Format("Loading Pilot: {0}, {1}", (object)__instance.Description.Callsign, (object)__instance.Description.Icon));
