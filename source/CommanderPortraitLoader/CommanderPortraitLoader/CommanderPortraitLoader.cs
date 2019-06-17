@@ -26,7 +26,7 @@ namespace CommanderPortraitLoader
             //harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             ModDirectory = directory;
-            disableCreatePilotPatch = false;
+            disableCreatePilotPatch = true;
             CreateJsons();
             //AddOrUpdateJSONToManifest();
             //HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
@@ -58,15 +58,6 @@ namespace CommanderPortraitLoader
                         portait.Description.SetID(info.Name.Replace(".png", ""));
                         portait.Description.SetIcon(info.Name.Replace(".png", ""));
                         portait.isCommander = true;
-                        
-                        //CustomPreset preset = new CustomPreset();
-                        //preset.isCommander = true;
-                        //preset.Description = new CustomDescription();
-                        //preset.Description.Id = info.Name.Replace(".png", "");
-                        //preset.Description.Icon = info.Name.Replace(".png", "");
-                        //preset.Description.Name = info.Name.Replace(".png", "");
-                        //preset.Description.Details = "";
-                        //JObject o = (JObject)JToken.FromObject(preset);
                         using (StreamWriter writer = new StreamWriter(jsonPath + info.Name.Replace(".png", ".json"), false))
                         {
                             writer.WriteLine(portait.ToJSON());
