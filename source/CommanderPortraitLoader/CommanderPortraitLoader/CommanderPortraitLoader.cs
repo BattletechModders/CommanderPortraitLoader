@@ -21,19 +21,17 @@ namespace CommanderPortraitLoader
         {
             var harmony = HarmonyInstance.Create("JWolf.CommanderPortraitLoader");
             var original = typeof(PilotRepresentation).GetMethod("PlayPilotVO");
-            //var genericMethod = original.MakeGenericMethod(new Type[] { typeof(AudioSwitch_dialog_lines_pilots) });
-            //var transpiler = typeof(PilotRepresentation_PlayPilotVO_Patch).GetMethod("Transpiler");
-            //harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
+            var genericMethod = original.MakeGenericMethod(new Type[] { typeof(AudioSwitch_dialog_lines_pilots) });
+            var transpiler = typeof(PilotRepresentation_PlayPilotVO_Patch).GetMethod("Transpiler");
+            harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             ModDirectory = directory;
             disableCreatePilotPatch = true;
             CreateJsons();
-            //AddOrUpdateJSONToManifest();
-            //HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
-            //HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_m_raju", true));
-            //HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_f_kamea");
-            //HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_m_raju");
-            //HarmonyInstance.DEBUG = true;
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_m_raju", true));
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_f_kamea");
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_m_raju");
         }
 
         public static void CreateJsons()
