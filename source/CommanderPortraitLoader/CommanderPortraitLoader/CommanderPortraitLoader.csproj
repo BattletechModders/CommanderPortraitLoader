@@ -64,6 +64,8 @@
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="RenderedPortraitResult_GetItemPatch.cs" />
     <Compile Include="SGBarracksDossierPanel_Patches.cs" />
+    <Compile Include="SGBarracksMWCustomizationPopup_Patches.cs" />
+    <Compile Include="SGBarracksMWDetailPanel_Patches.cs" />
     <Compile Include="SGCharacterCreationNamePanel_Patches.cs" />
     <Compile Include="SGCharacterCreationWidget_Patches.cs" />
     <Compile Include="SpawnableUnit_Patches.cs" />

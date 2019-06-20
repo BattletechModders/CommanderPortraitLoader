@@ -2,10 +2,10 @@
     "Name": "CommanderPortraitLoader",
     "Enabled": true,
 
-    "Version": "202.0.0",
+    "Version": "2.0.0",
     "Description": "Loads your custom PNGs as a Commander avatar and allows voice selection.",
     "Author": "Morphyum & Callyste & Jamie Wolf",
-    "Website": "https://github.com/Morphyum/CommanderPortraitLoader",
+    "Website": "https://gitlab.com/JWolf16/jw-commanderportraitloader",
     "Contact": "",
 	
 	"ConflictsWith": [ "RogueTech Enhanced", "RogueTech Enhanced Clans"],
