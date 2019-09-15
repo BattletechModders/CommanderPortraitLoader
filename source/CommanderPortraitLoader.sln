@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommanderPortraitLoader", "CommanderPortraitLoader\CommanderPortraitLoader.csproj", "{B44AE8C1-52CF-4D0C-AB33-1C69DE51CAAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommanderPortraitLoader", "CommanderPortraitLoader.csproj", "{B44AE8C1-52CF-4D0C-AB33-1C69DE51CAAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
