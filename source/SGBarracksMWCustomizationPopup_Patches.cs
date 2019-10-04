@@ -37,7 +37,7 @@ namespace CommanderPortraitLoader
                 {
                     if(!string.IsNullOrEmpty(__instance.pilot.pilotDef.Description.Icon))
                     {
-                        string filePath = $"{ CommanderPortraitLoader.ModDirectory}/PortraitJsons/" + __instance.pilot.pilotDef.Description.Icon + ".json";
+                        string filePath = $"{ CommanderPortraitLoader.ModDirectory}/PortraitJsons/portraits/" + __instance.pilot.pilotDef.Description.Icon + ".json";
                         if (File.Exists(filePath))
                         {
                             portraitSettingsData = new PortraitSettings();

@@ -16,7 +16,7 @@ namespace CommanderPortraitLoader
         {
             try
             {
-                string filePath = $"{ CommanderPortraitLoader.ModDirectory}/PortraitJsons/";
+                string filePath = $"{ CommanderPortraitLoader.ModDirectory}/PortraitJsons/portraits/";
                 DirectoryInfo d1 = new DirectoryInfo(filePath);
                 FileInfo[] f1 = d1.GetFiles("*.json");
 

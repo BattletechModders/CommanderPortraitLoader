@@ -19,13 +19,14 @@ namespace CommanderPortraitLoader
 
         public static void Init(string directory, string settingsJSON)
         {
+            ModDirectory = directory;
             var harmony = HarmonyInstance.Create("JWolf.CommanderPortraitLoader");
             var original = typeof(PilotRepresentation).GetMethod("PlayPilotVO");
             var genericMethod = original.MakeGenericMethod(new Type[] { typeof(AudioSwitch_dialog_lines_pilots) });
             var transpiler = typeof(PilotRepresentation_PlayPilotVO_Patch).GetMethod("Transpiler");
             harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-            ModDirectory = directory;
+            
             disableCreatePilotPatch = true;
             CreateJsons();
             HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
@@ -39,7 +40,7 @@ namespace CommanderPortraitLoader
             try
             {
                 //Create a path for the Json files if it does not already exist
-                string jsonPath = $"{ CommanderPortraitLoader.ModDirectory}/PortraitJsons/";
+                string jsonPath = $"{ CommanderPortraitLoader.ModDirectory}/PortraitJsons/portraits/";
                 Directory.CreateDirectory(jsonPath);
 
                 string filePath = $"{ CommanderPortraitLoader.ModDirectory}/Portraits/";
