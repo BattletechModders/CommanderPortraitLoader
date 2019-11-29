@@ -31,7 +31,15 @@ namespace CommanderPortraitLoader
             {
                 //Logger.LogLine(string.Format("Loading Pilot: {0}, {1}", (object)__instance.Description.Callsign, (object)__instance.Description.Icon));
                 // Issue a Load request for any custom sprites 
-                loadRequest.AddBlindLoadRequest(BattleTechResourceType.Sprite, __instance.Description.Icon, new bool?(false));
+                try
+                {
+                    Logger.LogLine(string.Format("Issuing  Load Request Icon for Pilot: {0}, {1}", (object)__instance.Description.Callsign, (object)__instance.Description.Icon));
+                    loadRequest.AddBlindLoadRequest(BattleTechResourceType.Sprite, __instance.Description.Icon, new bool?(false));
+                }
+                catch (Exception e)
+                {
+                    Logger.LogError(e);
+                }
 
             }
 
