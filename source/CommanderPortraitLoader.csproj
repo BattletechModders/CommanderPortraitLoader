@@ -69,6 +69,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommanderPortraitLoader.cs" />
+    <Compile Include="CustomVoice.cs" />
+    <Compile Include="CustomVoiceFetcher.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="NewVoice.cs" />
     <Compile Include="PilotDef_Patches.cs" />

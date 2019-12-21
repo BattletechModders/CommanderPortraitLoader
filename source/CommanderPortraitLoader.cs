@@ -16,6 +16,7 @@ namespace CommanderPortraitLoader
     {
         internal static string ModDirectory;
         public static bool disableCreatePilotPatch;
+        public static List<CustomVoice> customVoices;
 
         public static void Init(string directory, string settingsJSON)
         {

@@ -18,37 +18,45 @@ namespace CommanderPortraitLoader
 
         static void Postfix(ref SGCharacterCreationNamePanel __instance)
         {
-            ReflectionHelper.SetPrivateField(__instance, "nameWasBlank", (bool)ReflectionHelper.InvokePrivateMethod(__instance, "get_NameIsBlank", null));
-            __instance.pronounSelector.SetOptions(new string[]
+            CommanderPortraitLoader.customVoices = CustomVoiceFetcher.GetCustomVoices();
+            List<string> sOptions = new List<string>();
+            sOptions.Add("Female Pro");
+            sOptions.Add("Female Pro 2");
+            sOptions.Add("Female British");
+            sOptions.Add("Female Asian");
+            sOptions.Add("Female Irish");
+            sOptions.Add("Female Midwest");
+            sOptions.Add("Female Russian");
+            sOptions.Add("Female Tanesha");
+            sOptions.Add("Female Tough");
+            sOptions.Add("Female Bear");
+            sOptions.Add("Female Creep");
+            sOptions.Add("Female Kamea");
+            sOptions.Add("Female Overload");
+
+            sOptions.Add("Male Pro");
+            sOptions.Add("Male British");
+            sOptions.Add("Male David");
+            sOptions.Add("Male Brad");
+            sOptions.Add("Male Rick");
+            sOptions.Add("Male Matthew");
+            sOptions.Add("Male Allan");
+            sOptions.Add("Male Ermy");
+            sOptions.Add("Male Bear");
+            sOptions.Add("Male Raju");
+            sOptions.Add("Male Rizzo");
+            sOptions.Add("Male Vizzini");
+            sOptions.Add("Male Overload");
+
+            sOptions.Add("Onboard AI");
+
+            foreach (CustomVoice cv in CommanderPortraitLoader.customVoices)
             {
-                "Female Pro",
-                "Female Pro 2",
-                "Female British",
-                "Female Asian",
-                "Female Irish",
-                "Female Midwest",
-                "Female Russian",
-                "Female Tanesha",
-                "Female Tough",
-                "Female Bear",
-                "Female Creep",
-                "Female Kamea",
-                "Female Overload",
-                "Male Pro",
-                "Male British",
-                "Male David",
-                "Male Brad",
-                "Male Rick",
-                "Male Matthew",
-                "Male Allan",
-                "Male Ermy",
-                "Male Bear",
-                "Male Raju",
-                "Male Rizzo",
-                "Male Vizzini",
-                "Male Overload",
-                "Onboard AI"
-            });
+                sOptions.Add(cv.name);
+            }
+
+            ReflectionHelper.SetPrivateField(__instance, "nameWasBlank", (bool)ReflectionHelper.InvokePrivateMethod(__instance, "get_NameIsBlank", null));
+            __instance.pronounSelector.SetOptions(sOptions.ToArray());
             __instance.pronounSelector.Select(0);
         }
     }
@@ -69,6 +77,19 @@ namespace CommanderPortraitLoader
             string text = __instance.pronounSelector.selection.ToLower();
             if (text != null)
             {
+                if (CommanderPortraitLoader.customVoices != null)
+                {
+                    foreach (CustomVoice cv in CommanderPortraitLoader.customVoices)
+                    {
+                        if (text == cv.name)
+                        {
+                            NewVoice.newVoice = cv.name;
+                            __result = cv.gender;
+                            SGBarracksDossierPanel.PlayVO(cv.name);
+                            return;
+                        }
+                    }
+                }
                 if (!(text == "male pro") && !(text == "male british") && !(text == "male david") && !(text == "male brad") && !(text == "male rick") && !(text == "male matthew") && !(text == "male allan") && !(text == "male ermy") && !(text == "male bear") && !(text == "male raju") && !(text == "male rizzo") && !(text == "male vizzini") && !(text == "male overload"))
                 {
                     if (!(text == "female pro") && !(text == "female pro 2") && !(text == "female british") && !(text == "female asian") && !(text == "female irish") && !(text == "female midwest") && !(text == "female tanesha") && !(text == "female tough") && !(text == "female bear") && !(text == "female creep") && !(text == "female russian") && !(text == "female kamea") && !(text == "female overload"))
