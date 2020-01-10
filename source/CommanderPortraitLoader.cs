@@ -17,8 +17,23 @@ namespace CommanderPortraitLoader
         internal static string ModDirectory;
         public static bool disableCreatePilotPatch;
         public static List<CustomVoice> customVoices;
+    public static void FinishedLoading(List<string> loadOrder) {
+      Logger.LogLine("FinishedLoading");
+      try {
+        CustomVoiceFetcher.DetectCustomVoices(loadOrder);
+        Logger.LogLine("CustomVoices detection status:"+ CustomVoiceFetcher.isCustomVoicesDetected);
+        if (CustomVoiceFetcher.isCustomVoicesDetected == false) {
+          HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
+          HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_m_raju", true));
+          HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_f_kamea");
+          HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_m_raju");
+        }
+      } catch (Exception e) {
+        Logger.LogError(e);
+      }
+    }
 
-        public static void Init(string directory, string settingsJSON)
+    public static void Init(string directory, string settingsJSON)
         {
             ModDirectory = directory;
             var harmony = HarmonyInstance.Create("JWolf.CommanderPortraitLoader");
@@ -30,10 +45,6 @@ namespace CommanderPortraitLoader
             
             disableCreatePilotPatch = true;
             CreateJsons();
-            HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
-            HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_m_raju", true));
-            HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_f_kamea");
-            HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_m_raju");
         }
 
         public static void CreateJsons()
