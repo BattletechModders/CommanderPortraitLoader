@@ -47,11 +47,6 @@ namespace CommanderPortraitLoader {
       sOptions.Add("Male Overload");
 
       sOptions.Add("Onboard AI");
-
-      foreach (CustomVoice cv in CommanderPortraitLoader.customVoices) {
-        sOptions.Add(cv.name);
-      }
-
       ReflectionHelper.SetPrivateField(__instance, "nameWasBlank", (bool)ReflectionHelper.InvokePrivateMethod(__instance, "get_NameIsBlank", null));
       __instance.pronounSelector.SetOptions(sOptions.ToArray());
       __instance.pronounSelector.Select(0);
