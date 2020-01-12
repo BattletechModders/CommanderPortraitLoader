@@ -12,12 +12,12 @@ namespace CommanderPortraitLoader {
   [HarmonyPatch(typeof(SGBarracksMWCustomizationPopup), "Save")]
   public static class SGBarracksMWCustomizationPopup_SavePatch {
     static void Postfix(ref SGBarracksMWCustomizationPopup __instance) {
+      if (!string.IsNullOrEmpty(__instance.pilot.pilotDef.Description.Icon)) {
+        __instance.pilot.pilotDef.PortraitSettings = null;
+      }
       if (CustomVoiceFetcher.isCustomVoicesDetected) { return; }
       if (!string.IsNullOrEmpty(NewVoice.newVoice)) {
         __instance.pilot.pilotDef.SetVoice(NewVoice.newVoice);
-      }
-      if (!string.IsNullOrEmpty(__instance.pilot.pilotDef.Description.Icon)) {
-        __instance.pilot.pilotDef.PortraitSettings = null;
       }
     }
   }
