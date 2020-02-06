@@ -22,12 +22,24 @@ namespace CommanderPortraitLoader
       try {
         CustomVoiceFetcher.DetectCustomVoices(loadOrder);
         Logger.LogLine("CustomVoices detection status:"+ CustomVoiceFetcher.isCustomVoicesDetected);
-        if (CustomVoiceFetcher.isCustomVoicesDetected == false) {
-          HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
-          HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_m_raju", true));
-          HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_f_kamea");
-          HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_m_raju");
+        if (CustomVoiceFetcher.isCustomVoicesDetected == false)
+        {
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_f_kamea", true));
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.LoadBank((AudioBankList)Enum.Parse(typeof(AudioBankList), "vo_m_raju", true));
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_f_kamea");
+            HBS.SceneSingletonBehavior<WwiseManager>.Instance.voBanks.Add("vo_m_raju");
+            string[] peristantBanks = new string[5];
+            Array.Resize(ref peristantBanks, WwiseDefinitions.PERSISTENT_BANK_IDS.Length + 2);
+            for (int index = 0; index < WwiseDefinitions.PERSISTENT_BANK_IDS.Length; ++index)
+            {
+                peristantBanks[index] = WwiseDefinitions.PERSISTENT_BANK_IDS[index];
+            }
+            peristantBanks[WwiseDefinitions.PERSISTENT_BANK_IDS.Length] = "vo_f_kamea";
+            peristantBanks[WwiseDefinitions.PERSISTENT_BANK_IDS.Length + 1] = "vo_m_raju";
+            typeof(WwiseDefinitions).GetField("PERSISTENT_BANK_IDS", BindingFlags.Public | BindingFlags.Static).SetValue(null, peristantBanks);
+
         }
+
       } catch (Exception e) {
         Logger.LogError(e);
       }

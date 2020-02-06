@@ -85,7 +85,6 @@
     <Compile Include="SGCharacterCreationWidget_Patches.cs" />
     <Compile Include="SpawnableUnit_Patches.cs" />
     <Compile Include="VersionManifestUtilities_Patches.cs" />
-    <Compile Include="WwiseDefinitions_Patches.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
