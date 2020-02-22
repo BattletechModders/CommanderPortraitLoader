@@ -64,7 +64,7 @@ namespace CommanderPortraitLoader
             try
             {
                 //Create a path for the Json files if it does not already exist
-                string jsonPath = $"{ CommanderPortraitLoader.ModDirectory}/PortraitJsons/portraits/";
+                string jsonPath = $"{ CommanderPortraitLoader.ModDirectory}/../CPLHelper/portraits/";
                 Directory.CreateDirectory(jsonPath);
 
                 string filePath = $"{ CommanderPortraitLoader.ModDirectory}/Portraits/";
