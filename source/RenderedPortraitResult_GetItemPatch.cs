@@ -5,6 +5,7 @@ using System.Text;
 using Harmony;
 using BattleTech;
 using BattleTech.Portraits;
+using BattleTech.Data;
 using UnityEngine;
 using System.IO;
 
@@ -20,8 +21,20 @@ namespace CommanderPortraitLoader
                 try
                 {
                     Texture2D texture2D = new Texture2D(2, 2);
-                    byte[] array = File.ReadAllBytes($"{ CommanderPortraitLoader.ModDirectory}/Portraits/" + __instance.settings.Description.Icon + ".png");
-                    texture2D.LoadImage(array);
+                    string filePath = $"{ CommanderPortraitLoader.ModDirectory}/Portraits/" + __instance.settings.Description.Icon;
+                    byte[] array;
+                    if (File.Exists(filePath + ".dds"))
+                    {
+                        array = File.ReadAllBytes(filePath + ".dds");
+                        texture2D = TextureManager.LoadTextureDXT(array);
+                    }
+                    else
+                    {
+                        array = File.ReadAllBytes(filePath + ".png");
+                        texture2D.LoadImage(array);
+                    }
+
+                    
                     __result = texture2D;
                 }
                 catch (Exception e)

@@ -69,21 +69,46 @@ namespace CommanderPortraitLoader
 
                 string filePath = $"{ CommanderPortraitLoader.ModDirectory}/Portraits/";
                 DirectoryInfo d1 = new DirectoryInfo(filePath);
-                FileInfo[] f1 = d1.GetFiles("*.png");
+                FileInfo[] f1 = d1.GetFiles();
                 foreach (FileInfo info in f1)
                 {
-                    if (!File.Exists(info.FullName.Replace(".png", ".json")))
+                    if (info.Name.EndsWith(".png"))
                     {
-                        PortraitSettings portait = new PortraitSettings();
-                        portait.headMesh = 0.5f;
-                        portait.Randomize(true);
-                        portait.Description.SetName(info.Name.Replace(".png", ""));
-                        portait.Description.SetID(info.Name.Replace(".png", ""));
-                        portait.Description.SetIcon(info.Name.Replace(".png", ""));
-                        portait.isCommander = true;
-                        using (StreamWriter writer = new StreamWriter(jsonPath + info.Name.Replace(".png", ".json"), false))
+                        if (!File.Exists(info.FullName.Replace(".png", ".json")))
                         {
-                            writer.WriteLine(portait.ToJSON());
+                            PortraitSettings portait = new PortraitSettings();
+                            portait.headMesh = 0.5f;
+                            portait.Randomize(true);
+                            portait.Description.SetName(info.Name.Replace(".png", ""));
+                            portait.Description.SetID(info.Name.Replace(".png", ""));
+                            portait.Description.SetIcon(info.Name.Replace(".png", ""));
+                            portait.isCommander = true;
+                            using (StreamWriter writer =
+                                new StreamWriter(jsonPath + info.Name.Replace(".png", ".json"), false))
+                            {
+                                writer.WriteLine(portait.ToJSON());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (info.Name.EndsWith(".dds"))
+                        {
+                            if (!File.Exists(info.FullName.Replace(".dds", ".json")))
+                            {
+                                PortraitSettings portait = new PortraitSettings();
+                                portait.headMesh = 0.5f;
+                                portait.Randomize(true);
+                                portait.Description.SetName(info.Name.Replace(".dds", ""));
+                                portait.Description.SetID(info.Name.Replace(".dds", ""));
+                                portait.Description.SetIcon(info.Name.Replace(".dds", ""));
+                                portait.isCommander = true;
+                                using (StreamWriter writer =
+                                    new StreamWriter(jsonPath + info.Name.Replace(".dds", ".json"), false))
+                                {
+                                    writer.WriteLine(portait.ToJSON());
+                                }
+                            }
                         }
                     }
                 }
