@@ -28,15 +28,22 @@ namespace CommanderPortraitLoader {
       try {
         if (portraitSettingsData == null) {
           if (!string.IsNullOrEmpty(__instance.pilot.pilotDef.Description.Icon)) {
-            string filePath = $"{ CommanderPortraitLoader.ModDirectory}/../CPLHelper/portraits/" + __instance.pilot.pilotDef.Description.Icon + ".json";
-            if (File.Exists(filePath)) {
-              portraitSettingsData = new PortraitSettings();
-              using (StreamReader r = new StreamReader(filePath)) {
-                string json = r.ReadToEnd();
-                portraitSettingsData.FromJSON(json);
+            foreach (string path in CommanderPortraitLoader.jsonSearchablePaths)
+            {
+
+
+              string filePath = path + __instance.pilot.pilotDef.Description.Icon + ".json";
+              if (File.Exists(filePath))
+              {
+                portraitSettingsData = new PortraitSettings();
+                using (StreamReader r = new StreamReader(filePath))
+                {
+                  string json = r.ReadToEnd();
+                  portraitSettingsData.FromJSON(json);
+                  break;
+                }
               }
             }
-
           }
 
         }

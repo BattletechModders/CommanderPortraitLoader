@@ -17,6 +17,8 @@ namespace CommanderPortraitLoader
         internal static string ModDirectory;
         public static bool disableCreatePilotPatch;
         public static List<CustomVoice> customVoices;
+        public static List<string> searchablePaths;
+        public static List<string> jsonSearchablePaths;
     public static void FinishedLoading(List<string> loadOrder) {
       Logger.LogLine("FinishedLoading");
       try {
@@ -45,6 +47,11 @@ namespace CommanderPortraitLoader
       }
     }
 
+    public static void AddPortraitPath(string path)
+    {
+        searchablePaths.Add(path);
+    }
+
     public static void Init(string directory, string settingsJSON)
         {
             ModDirectory = directory;
@@ -54,7 +61,10 @@ namespace CommanderPortraitLoader
             var transpiler = typeof(PilotRepresentation_PlayPilotVO_Patch).GetMethod("Transpiler");
             harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
-            
+            searchablePaths = new List<string>();
+            searchablePaths.Add($"{ModDirectory}/Portraits/");
+            jsonSearchablePaths = new List<string>();
+            jsonSearchablePaths.Add($"{ ModDirectory}/../CPLHelper/portraits/");
             disableCreatePilotPatch = true;
             CreateJsons();
         }
