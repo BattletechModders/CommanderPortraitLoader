@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CommanderPortraitLoader {
     public class Logger {
-        static string filePath = $"{CommanderPortraitLoader.ModDirectory}/Log.txt";
+        static string filePath = Path.Combine(CommanderPortraitLoader.ModDirectory,"Log.txt");
         public static void LogError(Exception ex) {
             using (var writer = new StreamWriter(filePath, true)) {
                 writer.WriteLine("Message :" + ex.Message + "<br/>" + Environment.NewLine + "StackTrace :" + ex.StackTrace +
