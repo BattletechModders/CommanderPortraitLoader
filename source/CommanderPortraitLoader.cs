@@ -95,7 +95,7 @@ namespace CommanderPortraitLoader
                             portait.Description.SetID(info.Name.Replace(ext, ""));
                             portait.Description.SetIcon(info.Name.Replace(ext, ""));
                             portait.isCommander = true;
-                            using (StreamWriter writer = new StreamWriter(jsonPath + info.Name.Replace(ext, ".json"), false))
+                            using (StreamWriter writer = new StreamWriter(Path.Combine(jsonPath,info.Name.Replace(ext, ".json")), false))
                             {
                                 writer.WriteLine(portait.ToJSON());
                             }
