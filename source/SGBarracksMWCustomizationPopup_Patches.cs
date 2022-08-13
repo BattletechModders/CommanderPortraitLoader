@@ -32,7 +32,7 @@ namespace CommanderPortraitLoader {
             {
 
 
-              string filePath = path + __instance.pilot.pilotDef.Description.Icon + ".json";
+              string filePath = Path.Combine(path,__instance.pilot.pilotDef.Description.Icon + ".json");
               if (File.Exists(filePath))
               {
                 portraitSettingsData = new PortraitSettings();

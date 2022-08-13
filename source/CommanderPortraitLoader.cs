@@ -19,6 +19,7 @@ namespace CommanderPortraitLoader
         public static List<CustomVoice> customVoices;
         public static List<string> searchablePaths;
         public static List<string> jsonSearchablePaths;
+        public static readonly List<string> supportedSuffixes = new List<string>() { ".png", ".jpeg", ".gif", ".dds" };
     public static void FinishedLoading(List<string> loadOrder) {
       Logger.LogLine("FinishedLoading");
       try {
@@ -62,9 +63,9 @@ namespace CommanderPortraitLoader
             harmony.Patch(genericMethod, null, null, new HarmonyMethod(transpiler));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
             searchablePaths = new List<string>();
-            searchablePaths.Add($"{ModDirectory}/Portraits/");
+            searchablePaths.Add(Path.Combine(ModDirectory,"Portraits"));
             jsonSearchablePaths = new List<string>();
-            jsonSearchablePaths.Add($"{ ModDirectory}/../CPLHelper/portraits/");
+            jsonSearchablePaths.Add(Path.Combine(ModDirectory,"..","CPLHelper","portraits"));
             disableCreatePilotPatch = true;
             CreateJsons();
         }
@@ -74,53 +75,70 @@ namespace CommanderPortraitLoader
             try
             {
                 //Create a path for the Json files if it does not already exist
-                string jsonPath = $"{ CommanderPortraitLoader.ModDirectory}/../CPLHelper/portraits/";
+                string jsonPath = Path.Combine(ModDirectory, "..", "CPLHelper", "portraits");
+                //$"{ CommanderPortraitLoader.ModDirectory}/../CPLHelper/portraits/";
                 Directory.CreateDirectory(jsonPath);
 
-                string filePath = $"{ CommanderPortraitLoader.ModDirectory}/Portraits/";
+                string filePath = Path.Combine(ModDirectory, "Portraits");//$"{ CommanderPortraitLoader.ModDirectory}/Portraits/";
                 DirectoryInfo d1 = new DirectoryInfo(filePath);
                 FileInfo[] f1 = d1.GetFiles();
                 foreach (FileInfo info in f1)
                 {
-                    if (info.Name.EndsWith(".png"))
-                    {
-                        if (!File.Exists(info.FullName.Replace(".png", ".json")))
+                    foreach(string ext in supportedSuffixes) {
+                      if (info.Name.EndsWith(ext)) {
+                        if (!File.Exists(info.FullName.Replace(ext, ".json")))
                         {
                             PortraitSettings portait = new PortraitSettings();
                             portait.headMesh = 0.5f;
                             portait.Randomize(true);
-                            portait.Description.SetName(info.Name.Replace(".png", ""));
-                            portait.Description.SetID(info.Name.Replace(".png", ""));
-                            portait.Description.SetIcon(info.Name.Replace(".png", ""));
+                            portait.Description.SetName(info.Name.Replace(ext, ""));
+                            portait.Description.SetID(info.Name.Replace(ext, ""));
+                            portait.Description.SetIcon(info.Name.Replace(ext, ""));
                             portait.isCommander = true;
-                            using (StreamWriter writer =
-                                new StreamWriter(jsonPath + info.Name.Replace(".png", ".json"), false))
+                            using (StreamWriter writer = new StreamWriter(Path.Combine(jsonPath,info.Name.Replace(ext, ".json")), false))
                             {
                                 writer.WriteLine(portait.ToJSON());
                             }
                         }
+                        break;
+                      }
                     }
-                    else
-                    {
-                        if (info.Name.EndsWith(".dds"))
-                        {
-                            if (!File.Exists(info.FullName.Replace(".dds", ".json")))
-                            {
-                                PortraitSettings portait = new PortraitSettings();
-                                portait.headMesh = 0.5f;
-                                portait.Randomize(true);
-                                portait.Description.SetName(info.Name.Replace(".dds", ""));
-                                portait.Description.SetID(info.Name.Replace(".dds", ""));
-                                portait.Description.SetIcon(info.Name.Replace(".dds", ""));
-                                portait.isCommander = true;
-                                using (StreamWriter writer =
-                                    new StreamWriter(jsonPath + info.Name.Replace(".dds", ".json"), false))
-                                {
-                                    writer.WriteLine(portait.ToJSON());
-                                }
-                            }
-                        }
-                    }
+                    //if (info.Name.EndsWith(".png"))
+                    //{
+                    //    if (!File.Exists(info.FullName.Replace(".png", ".json")))
+                    //    {
+                    //        PortraitSettings portait = new PortraitSettings();
+                    //        portait.headMesh = 0.5f;
+                    //        portait.Randomize(true);
+                    //        portait.Description.SetName(info.Name.Replace(".png", ""));
+                    //        portait.Description.SetID(info.Name.Replace(".png", ""));
+                    //        portait.Description.SetIcon(info.Name.Replace(".png", ""));
+                    //        portait.isCommander = true;
+                    //        using (StreamWriter writer =
+                    //            new StreamWriter(jsonPath + info.Name.Replace(".png", ".json"), false))
+                    //        {
+                    //            writer.WriteLine(portait.ToJSON());
+                    //        }
+                    //    }
+                    //}
+                    //else if (info.Name.EndsWith(".dds"))
+                    //{
+                    //    if (!File.Exists(info.FullName.Replace(".dds", ".json")))
+                    //    {
+                    //        PortraitSettings portait = new PortraitSettings();
+                    //        portait.headMesh = 0.5f;
+                    //        portait.Randomize(true);
+                    //        portait.Description.SetName(info.Name.Replace(".dds", ""));
+                    //        portait.Description.SetID(info.Name.Replace(".dds", ""));
+                    //        portait.Description.SetIcon(info.Name.Replace(".dds", ""));
+                    //        portait.isCommander = true;
+                    //        using (StreamWriter writer =
+                    //            new StreamWriter(jsonPath + info.Name.Replace(".dds", ".json"), false))
+                    //        {
+                    //            writer.WriteLine(portait.ToJSON());
+                    //        }
+                    //    }
+                    //}
                 }
             }
             catch (Exception e)
